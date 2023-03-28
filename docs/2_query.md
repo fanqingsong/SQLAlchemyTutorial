@@ -1,4 +1,4 @@
-# 1. Query
+# 2. Query
 
 For full documentation visit [sqlalchemy.org](https://www.sqlalchemy.org/).
 
