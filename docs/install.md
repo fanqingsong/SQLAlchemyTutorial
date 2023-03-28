@@ -1,4 +1,4 @@
-# Welcome to SQLAlchemy Tutorial
+# Install
 
 For full documentation visit [sqlalchemy.org](https://www.sqlalchemy.org/).
 
