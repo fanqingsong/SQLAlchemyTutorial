@@ -1,8 +1,10 @@
-# 2. Query
+# 3. Relationship
 
 For full documentation visit [sqlalchemy.org](https://www.sqlalchemy.org/).
 
 ## Code
+
+```python
 
     from pprint import pprint
 
@@ -87,7 +89,7 @@ For full documentation visit [sqlalchemy.org](https://www.sqlalchemy.org/).
     pprint(c[0].parent.children[0])
 
     pprint(c[0].parent.children[0].__dict__)
-
+```
 
 
 ## Output
@@ -146,4 +148,3 @@ For full documentation visit [sqlalchemy.org](https://www.sqlalchemy.org/).
     'parent': <__main__.Parent object at 0x0000020F9489A3A0>,
     'parent_id': 1}
 
-    
