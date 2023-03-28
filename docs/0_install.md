@@ -1,4 +1,4 @@
-# 0. Install Method
+# 0. Install
 
 For full documentation visit [sqlalchemy.org](https://www.sqlalchemy.org/).
 
@@ -6,9 +6,3 @@ For full documentation visit [sqlalchemy.org](https://www.sqlalchemy.org/).
 
 * `pip install sqlalchemy` - install package
 
-## Project layout
-
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
