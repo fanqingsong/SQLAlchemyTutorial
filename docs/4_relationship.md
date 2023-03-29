@@ -2,6 +2,10 @@
 
 For full documentation visit [sqlalchemy.org](https://docs.sqlalchemy.org/en/14/orm/basic_relationships.html#one-to-many).
 
+[relationship](https://docs.sqlalchemy.org/en/14/orm/relationship_api.html#sqlalchemy.orm.relationship).
+
+[back_populates](https://docs.sqlalchemy.org/en/14/orm/relationship_api.html#sqlalchemy.orm.relationship.params.back_populates).
+
 ## Code
 
 ```py
