@@ -1,10 +1,10 @@
 # 3. Relationship
 
-For full documentation visit [sqlalchemy.org](https://www.sqlalchemy.org/).
+For full documentation visit [sqlalchemy.org](https://docs.sqlalchemy.org/en/14/orm/basic_relationships.html#one-to-many).
 
 ## Code
 
-```python
+```py
 
 from pprint import pprint
 
