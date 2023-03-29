@@ -4,7 +4,7 @@ For full documentation visit [sqlalchemy.org](https://docs.sqlalchemy.org/en/14/
 
 ## Code
 
-```py hl_lines="20 27 28"
+```py
 
 from pprint import pprint
 
