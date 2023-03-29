@@ -1,4 +1,4 @@
-# 4. Delete
+# 3. Delete
 
 For full documentation visit [sqlalchemy.org](https://docs.sqlalchemy.org/en/14/orm/quickstart.html).
 
