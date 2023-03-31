@@ -8,6 +8,10 @@ For full documentation visit [sqlalchemy.org](https://docs.sqlalchemy.org/en/14/
 
 [directed_graph](https://docs.sqlalchemy.org/en/13/_modules/examples/graphs/directed_graph.html)
 
+Although this is one simple notation for create relationship
+but it is legacy, proposed solution is back_populates.
+[link](https://docs.sqlalchemy.org/en/14/orm/backref.html)
+
 
 ## Code
 

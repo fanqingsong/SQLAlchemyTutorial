@@ -2,6 +2,9 @@
 
 For full documentation visit [sqlalchemy.org](https://www.sqlalchemy.org/).
 
+[get started](https://docs.sqlalchemy.org/en/14/orm/quickstart.html)
+
+
 ## Code
 
 ```py
