@@ -2,9 +2,12 @@
 
 For full documentation visit [sqlalchemy.org](https://docs.sqlalchemy.org/en/14/orm/basic_relationships.html#one-to-many).
 
-[relationship](https://docs.sqlalchemy.org/en/14/orm/relationship_api.html#sqlalchemy.orm.relationship).
+[relationship](https://docs.sqlalchemy.org/en/14/orm/relationship_api.html#sqlalchemy.orm.relationship)
 
-[backref](https://docs.sqlalchemy.org/en/14/orm/relationship_api.html#sqlalchemy.orm.relationship.params.backref).
+[backref](https://docs.sqlalchemy.org/en/14/orm/relationship_api.html#sqlalchemy.orm.relationship.params.backref)
+
+[directed_graph](https://docs.sqlalchemy.org/en/13/_modules/examples/graphs/directed_graph.html)
+
 
 ## Code
 
