@@ -27,7 +27,7 @@ class Parent(Base):
     __tablename__ = "parent_table"
     id = Column(Integer, primary_key=True)
     name = Column(String)
-    children = relationship("Child", back_populates="parent")
+    # children = relationship("Child", back_populates="parent")
 
 
 class Child(Base):
@@ -35,13 +35,10 @@ class Child(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String)
     parent_id = Column(Integer, ForeignKey("parent_table.id"))
-    parent = relationship("Parent", back_populates="children")
+    parent = relationship("Parent", backref="children")
 
 
-engine = create_engine("sqlite://", echo=True)
-
-#engine = create_engine("sqlite:///./file.db", echo=True)
-
+engine = create_engine("sqlite:///./file.db", echo=True)
 Base.metadata.create_all(engine)
 
 session = sessionmaker(engine)()
@@ -93,62 +90,87 @@ pprint("-------- c[0].parent.children[0] ----------")
 pprint(c[0].parent.children[0])
 
 pprint(c[0].parent.children[0].__dict__)
+
+
 ```
 
 
 ## Output
 
-    2023-03-28 23:22:23,422 INFO sqlalchemy.engine.Engine BEGIN (implicit)
-    2023-03-28 23:22:23,422 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("parent_table")
-    2023-03-28 23:22:23,422 INFO sqlalchemy.engine.Engine [raw sql] ()
-    2023-03-28 23:22:23,422 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("child_table")
-    2023-03-28 23:22:23,422 INFO sqlalchemy.engine.Engine [raw sql] ()
-    2023-03-28 23:22:23,422 INFO sqlalchemy.engine.Engine COMMIT
-    2023-03-28 23:22:23,424 INFO sqlalchemy.engine.Engine BEGIN (implicit)
-    2023-03-28 23:22:23,424 INFO sqlalchemy.engine.Engine INSERT INTO parent_table (name) VALUES (?)
-    2023-03-28 23:22:23,424 INFO sqlalchemy.engine.Engine [generated in 0.00011s] ('father',)
-    2023-03-28 23:22:23,424 INFO sqlalchemy.engine.Engine INSERT INTO child_table (name, parent_id) VALUES (?, ?)
-    2023-03-28 23:22:23,424 INFO sqlalchemy.engine.Engine [generated in 0.00010s] ('son', 8)
-    2023-03-28 23:22:23,424 INFO sqlalchemy.engine.Engine COMMIT
-    2023-03-28 23:22:23,431 INFO sqlalchemy.engine.Engine BEGIN (implicit)
-    2023-03-28 23:22:23,431 INFO sqlalchemy.engine.Engine SELECT parent_table.id AS parent_table_id, parent_table.name AS parent_table_name 
-    FROM parent_table
-    2023-03-28 23:22:23,431 INFO sqlalchemy.engine.Engine [generated in 0.00011s] ()
-    '-------- p[0] ----------'
-    <__main__.Parent object at 0x0000020F9489A3A0>
-    {'_sa_instance_state': <sqlalchemy.orm.state.InstanceState object at 0x0000020F94854940>,
-    'id': 1,
-    'name': 'father'}
-    '-------- p[0].children[0] ----------'
-    2023-03-28 23:22:23,431 INFO sqlalchemy.engine.Engine SELECT child_table.id AS child_table_id, child_table.name AS child_table_name, child_table.parent_id AS child_table_parent_id 
-    FROM child_table 
-    WHERE ? = child_table.parent_id
-    2023-03-28 23:22:23,431 INFO sqlalchemy.engine.Engine [generated in 0.00010s] (1,)
-    <__main__.Child object at 0x0000020F948B3040>
-    {'_sa_instance_state': <sqlalchemy.orm.state.InstanceState object at 0x0000020F9486AD60>,
-    'id': 1,
-    'name': 'son',
-    'parent_id': 1}
-    2023-03-28 23:22:23,431 INFO sqlalchemy.engine.Engine SELECT child_table.id AS child_table_id, child_table.name AS child_table_name, child_table.parent_id AS child_table_parent_id 
-    FROM child_table
-    2023-03-28 23:22:23,431 INFO sqlalchemy.engine.Engine [generated in 0.00008s] ()
-    '-------- c[0] ----------'
-    <__main__.Child object at 0x0000020F948B3040>
-    {'_sa_instance_state': <sqlalchemy.orm.state.InstanceState object at 0x0000020F9486AD60>,
-    'id': 1,
-    'name': 'son',
-    'parent_id': 1}
-    '-------- c[0].parent ----------'
-    <__main__.Parent object at 0x0000020F9489A3A0>
-    {'_sa_instance_state': <sqlalchemy.orm.state.InstanceState object at 0x0000020F94854940>,
-    'children': [<__main__.Child object at 0x0000020F948B3040>],
-    'id': 1,
-    'name': 'father'}
-    '-------- c[0].parent.children[0] ----------'
-    <__main__.Child object at 0x0000020F948B3040>
-    {'_sa_instance_state': <sqlalchemy.orm.state.InstanceState object at 0x0000020F9486AD60>,
-    'id': 1,
-    'name': 'son',
-    'parent': <__main__.Parent object at 0x0000020F9489A3A0>,
-    'parent_id': 1}
+    2023-03-31 22:29:48,276 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+    2023-03-31 22:29:48,276 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("node")
+    2023-03-31 22:29:48,276 INFO sqlalchemy.engine.Engine [raw sql] ()
+    2023-03-31 22:29:48,277 INFO sqlalchemy.engine.Engine PRAGMA temp.table_info("node")
+    2023-03-31 22:29:48,277 INFO sqlalchemy.engine.Engine [raw sql] ()
+    2023-03-31 22:29:48,277 INFO sqlalchemy.engine.Engine PRAGMA main.table_info("edge")
+    2023-03-31 22:29:48,277 INFO sqlalchemy.engine.Engine [raw sql] ()
+    2023-03-31 22:29:48,277 INFO sqlalchemy.engine.Engine PRAGMA temp.table_info("edge")
+    2023-03-31 22:29:48,277 INFO sqlalchemy.engine.Engine [raw sql] ()
+    2023-03-31 22:29:48,277 INFO sqlalchemy.engine.Engine 
+    CREATE TABLE node (
+        node_id INTEGER NOT NULL, 
+        PRIMARY KEY (node_id)
+    )
+
+
+    2023-03-31 22:29:48,277 INFO sqlalchemy.engine.Engine [no key 0.00006s] ()
+    2023-03-31 22:29:48,277 INFO sqlalchemy.engine.Engine 
+    CREATE TABLE edge (
+        lower_id INTEGER NOT NULL, 
+        higher_id INTEGER NOT NULL, 
+        PRIMARY KEY (lower_id, higher_id), 
+        FOREIGN KEY(lower_id) REFERENCES node (node_id), 
+        FOREIGN KEY(higher_id) REFERENCES node (node_id)
+    )
+
+
+    2023-03-31 22:29:48,278 INFO sqlalchemy.engine.Engine [no key 0.00008s] ()
+    2023-03-31 22:29:48,278 INFO sqlalchemy.engine.Engine COMMIT
+    2023-03-31 22:29:48,282 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+    2023-03-31 22:29:48,283 INFO sqlalchemy.engine.Engine INSERT INTO node (node_id) VALUES (NULL), (NULL), (NULL), (NULL), (NULL), (NULL), (NULL) RETURNING node_id
+    2023-03-31 22:29:48,283 INFO sqlalchemy.engine.Engine [generated in 0.00009s (insertmanyvalues)] ()
+    2023-03-31 22:29:48,284 INFO sqlalchemy.engine.Engine INSERT INTO edge (lower_id, higher_id) VALUES (?, ?)
+    2023-03-31 22:29:48,284 INFO sqlalchemy.engine.Engine [generated in 0.00010s] [(1, 2), (2, 1), (2, 3), (2, 4), (1, 5), (5, 6)]
+    2023-03-31 22:29:48,284 INFO sqlalchemy.engine.Engine COMMIT
+    2023-03-31 22:29:48,285 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+    2023-03-31 22:29:48,287 INFO sqlalchemy.engine.Engine SELECT node.node_id AS node_node_id 
+    FROM node 
+    WHERE node.node_id = ?
+    2023-03-31 22:29:48,287 INFO sqlalchemy.engine.Engine [generated in 0.00009s] (5,)
+    2023-03-31 22:29:48,287 INFO sqlalchemy.engine.Engine SELECT edge.lower_id AS edge_lower_id, edge.higher_id AS edge_higher_id 
+    FROM edge 
+    WHERE edge.lower_id = ?
+    2023-03-31 22:29:48,288 INFO sqlalchemy.engine.Engine [generated in 0.00008s] (5,)
+    2023-03-31 22:29:48,288 INFO sqlalchemy.engine.Engine SELECT node.node_id AS node_node_id 
+    FROM node 
+    WHERE node.node_id = ?
+    2023-03-31 22:29:48,288 INFO sqlalchemy.engine.Engine [cached since 0.001406s ago] (6,)
+    2023-03-31 22:29:48,289 INFO sqlalchemy.engine.Engine SELECT edge.lower_id AS edge_lower_id, edge.higher_id AS edge_higher_id 
+    FROM edge 
+    WHERE edge.higher_id = ?
+    2023-03-31 22:29:48,289 INFO sqlalchemy.engine.Engine [generated in 0.00008s] (5,)
+    2023-03-31 22:29:48,289 INFO sqlalchemy.engine.Engine SELECT node.node_id AS node_node_id 
+    FROM node 
+    WHERE node.node_id = ?
+    2023-03-31 22:29:48,289 INFO sqlalchemy.engine.Engine [cached since 0.002424s ago] (1,)
+    2023-03-31 22:29:48,289 INFO sqlalchemy.engine.Engine SELECT node.node_id AS node_node_id 
+    FROM node 
+    WHERE node.node_id = ?
+    2023-03-31 22:29:48,289 INFO sqlalchemy.engine.Engine [cached since 0.002752s ago] (2,)
+    2023-03-31 22:29:48,290 INFO sqlalchemy.engine.Engine SELECT edge.lower_id AS edge_lower_id, edge.higher_id AS edge_higher_id 
+    FROM edge 
+    WHERE edge.higher_id = ?
+    2023-03-31 22:29:48,290 INFO sqlalchemy.engine.Engine [cached since 0.001027s ago] (2,)
+    2023-03-31 22:29:48,290 INFO sqlalchemy.engine.Engine SELECT edge.lower_id AS edge_lower_id, edge.higher_id AS edge_higher_id 
+    FROM edge 
+    WHERE edge.lower_id = ?
+    2023-03-31 22:29:48,290 INFO sqlalchemy.engine.Engine [cached since 0.002493s ago] (2,)
+    2023-03-31 22:29:48,290 INFO sqlalchemy.engine.Engine SELECT node.node_id AS node_node_id 
+    FROM node 
+    WHERE node.node_id = ?
+    2023-03-31 22:29:48,290 INFO sqlalchemy.engine.Engine [cached since 0.00361s ago] (3,)
+    2023-03-31 22:29:48,291 INFO sqlalchemy.engine.Engine SELECT node.node_id AS node_node_id 
+    FROM node 
+    WHERE node.node_id = ?
+    2023-03-31 22:29:48,291 INFO sqlalchemy.engine.Engine [cached since 0.003911s ago] (4,)
 
