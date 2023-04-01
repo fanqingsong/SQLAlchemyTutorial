@@ -1,4 +1,4 @@
-# 2.0 Query BY API
+# 2.0 Query with API
 
 For full documentation visit [sqlalchemy.org](https://www.sqlalchemy.org/).
 

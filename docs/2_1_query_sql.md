@@ -1,4 +1,4 @@
-# 2.1 Query BY SQL
+# 2.1 Query with SQL
 
 For full documentation visit [sqlalchemy.org](https://www.sqlalchemy.org/).
 
