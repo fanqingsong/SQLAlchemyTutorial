@@ -1,4 +1,4 @@
-# 6. Relationship with cascade
+# 4.2 Relationship with cascade
 
 For full documentation visit [sqlalchemy.org](https://docs.sqlalchemy.org/en/14/orm/cascades.html#).
 
