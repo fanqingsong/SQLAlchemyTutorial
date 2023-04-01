@@ -1,4 +1,4 @@
-site_name: SQLAlchemy Tutorial
+site_name: SQLAlchemy Tutorial On Code
 theme:
   name: material
   features:
